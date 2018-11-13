@@ -1,0 +1,44 @@
+<% include ../partials/header %>
+<div class="row">
+	<div class="col-md-4 col-sm-6 col-xs-12">
+		<div class="well">
+			<h1 class="no-top-margin"><%= user.firstName + " " + user.lastName %></h1>
+			<div class="thumbnail">
+			    <% if(user.avatar.length>1){ %>
+				    <img src="<%= user.avatar %>" alt="user profile image">
+				<% } else { %>
+				    <img src="https://images.unsplash.com/photo-1531935102257-01f015023fc9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=62ff7ce2494b1d9fd9696165e0d16d7f&auto=format&fit=crop&w=500&q=60">
+				<% } %>
+				<div class="caption"><a href="mailto:<%= user.email %>"><%= user.email %></a></div>
+			</div>
+			<% if(user.aboutUser !== undefined){ %>
+				<%= user.aboutUser %>
+			<% } %>
+			<% if(currentUser && user._id.equals(currentUser._id)){ %>
+                <a class="btn btn-xs btn-warning" href="/users/<%= user._id %>/edit">Update Profile</a>
+            <% } %>
+		</div>
+	</div>
+	
+	<div class="col-md-8 col-sm-6 col-xs-12 well">
+		<h3 id="userTrails" class="no-top-margin">Uploaded trails:</h3>
+		<% trails.forEach(function(trail) { %>
+		    <div class="col-md-4 col-xs-6">
+                <div class="thumbnail">
+                	<a href="/trails/<%= trail.id %>">
+                    	<img class="img-responsive" src="<%= trail.image %>">
+                    	<div class="caption">
+                        	<h4><%= trail.name %></h4>
+                    	</div>
+                    </a>
+                </div>
+                
+            </div>
+		<% }); %>
+		<p>
+        	<a class="btn btn-primary btn-lg" href="/trails/new">Add New Trail</a>
+    	</p>
+	</div>
+</div>
+
+<% include ../partials/footer %>
