@@ -12,6 +12,13 @@
     filter: brightness(80%);
 }
 
+@media screen and (min-width: 992px) {
+    .user-trail-image {
+        max-height: 160px;
+        Object-fit: cover;
+        justify-self: center;
+    }
+}
 
 .no-top-margin {
     margin-top:0;
@@ -145,4 +152,63 @@
     margin-top: 0;
     margin-bottom: 0;
     padding: 4%;
+}
+
+/*for masonry*/
+/**********************************************/
+* { box-sizing: border-box; }
+
+/* force scrollbar */
+html { overflow-y: scroll; }
+
+body { font-family: sans-serif; }
+
+/* ---- grid ---- */
+
+/* clear fix */
+.mason-grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- .grid-item ---- */
+
+.grid-sizer,
+.grid-item {
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    .grid-sizer,
+    .grid-item {
+        width: 50%;
+        min-width: 300px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .grid-sizer,
+    .grid-item {
+        width: 33.33%;
+        min-width: 300px;
+    }
+}
+
+
+.grid-item {
+  float: left;
+}
+
+.grid-item img {
+  display: block;
+  width: 100%;
+}
+
+
+
+.grid-item img {
+    max-width: 98%;
+    display: block;
+    margin: 4px 0px 4px 0px;
 }

@@ -152,22 +152,36 @@
         <div role="tabpanel" class="tab-pane" id="profile">
             <div class="well">
     		    <h4><a href="/trails/<%= trail._id %>/photos/new">Upload new photo</a></h4>
-                <div class="row flex text-center equal-height">
-                    <% trail.photos.forEach(function(photo){ %>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="thumbnail">
-                                <a href="<%= photo.url %>"><img src="<%= photo.url %>" id="fullImage"></a>
+		        <div class="mason-grid">
+		            <div class="grid-sizer"></div>
+		            <% trail.photos.forEach(function(photo){ %>
+		                <div class="grid-item">
+                                <a href="<%= photo.url %>" rel="noopener noreferrer" target="_blank"><img src="<%= photo.url %>" id="fullImage"></a>
                                 <% if(currentUser && photo.author.id.equals(currentUser._id)){ %>
                                     <!--Delete comment button-->
                                     <form id="delete-form" action="/trails/<%= trail._id %>/photos/<%= photo._id %>?_method=DELETE" method="POST">
                                          <button class="image-button"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                 <% } %>
-                            </div>
-                            
                         </div>
-                    <% }); %>
-                </div>
+		            <% }); %>
+		        </div>
+                <!--<div class="row flex text-center equal-height">-->
+                <!--    <% trail.photos.forEach(function(photo){ %>-->
+                <!--        <div class="col-md-3 col-sm-6">-->
+                <!--            <div class="thumbnail">-->
+                <!--                <a href="<%= photo.url %>"><img src="<%= photo.url %>" id="fullImage"></a>-->
+                <!--                <% if(currentUser && photo.author.id.equals(currentUser._id)){ %>-->
+                                    <!--Delete comment button-->
+                <!--                    <form id="delete-form" action="/trails/<%= trail._id %>/photos/<%= photo._id %>?_method=DELETE" method="POST">-->
+                <!--                         <button class="image-button"><i class="fas fa-trash-alt"></i></button>-->
+                <!--                    </form>-->
+                <!--                <% } %>-->
+                <!--            </div>-->
+                            
+                <!--        </div>-->
+                <!--    <% }); %>-->
+                <!--</div>-->
             </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="messages">
@@ -219,4 +233,18 @@
   }
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADqGz6I4ErMW4iam2Bxj_nrHywPAv2P4w&callback=initMap"></script>
+
+<script>
+    // init Masonry
+    var $grid = $('.mason-grid').masonry({
+      itemSelector: '.grid-item',
+      percentPosition: true,
+      columnWidth: '.grid-sizer'
+    });
+    // layout Masonry after each image loads
+    $grid.imagesLoaded().progress( function() {
+      $grid.masonry();
+    });  
+</script>
+
 <% include ../partials/footer %>
