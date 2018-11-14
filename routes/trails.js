@@ -72,7 +72,6 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req,res
       cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
       //eval(require("locus"));
       if(err) {
-        console.log("inja");
         req.flash('error', err.message);
         return res.redirect('back');
       }
@@ -117,7 +116,6 @@ router.get("/:id",function(req,res){
                     req.flash("error", "Trail author not found");
                     return res.redirect("back");
                 }
-                console.log(foundTrail);
                 res.render("trails/show",{trail:foundTrail, authorAvatar:foundUser.avatar});
             });
             
