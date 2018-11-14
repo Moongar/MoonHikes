@@ -3,9 +3,9 @@
 	<div class="col-md-4 col-sm-6 col-xs-12">
 		<div class="well">
 			<h1 class="no-top-margin"><%= user.firstName + " " + user.lastName %></h1>
-			<div class="thumbnail">
+			<div>
 			    <% if(user.avatar.length>1){ %>
-				    <img src="<%= user.avatar %>" alt="user profile image">
+				    <img src="<%= user.avatar %>" alt="user profile image" class="img-responsive">
 				<% } else { %>
 				    <img src="https://images.unsplash.com/photo-1531935102257-01f015023fc9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=62ff7ce2494b1d9fd9696165e0d16d7f&auto=format&fit=crop&w=500&q=60">
 				<% } %>
