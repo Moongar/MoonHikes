@@ -2,7 +2,7 @@
 
     <header class="jumbotron">
         <div class="container">
-            <h1><i class="fas fa-hiking"></i> Welcome to MoonTrails!</h1>
+            <h1><i class="fas fa-hiking"></i> Welcome to MoonHikes!</h1>
             <p>View the best trails from all over Alberta</p>
             <p>
                 <a class="btn btn-primary btn-lg" href="/trails/new">Add New Trail</a>
@@ -17,18 +17,25 @@
             </p>
         </div>
     </header>
-        <div class="grid max-w-4xl mx-auto p-8">
-            
-            <% trails.forEach(function(trail){ %>
-                <a href="/trails/<%= trail._id %>" class="bg-white rounded h-full text-grey-darkest no-underline shadow-md text-center ">
-                    <img class="w-full block rounded-b" src="<%= trail.image %>">
-                    <p class="text-3xl p-6"><%= trail.name %></p>
-                </a>
-                
-
-            <% }); %>
-            
-        </div>
+    <div class="row flex text-center equal-height">
+        <% if(noMatch !== undefined && noMatch!=="no search"){ %>
+            <h3 style="padding-left:15px;"><%= noMatch %></h3>
+        <% } else if(noMatch !== "no search"){ %>
+            <% if(trails.length === 1){ %>
+                <h3 class="pull-left" style="padding-left:15px;">1 result found: <br></h3>
+            <% } else {%>
+                <h3 class="pull-left" style="padding-left:15px;"><%=trails.length %> results found: <br></h3>
+            <% } %>
+        <% } %>
+    </div>
+    <div class="grid max-w-4xl mx-auto p-8">
+        <% trails.forEach(function(trail){ %>
+            <a href="/trails/<%= trail._id %>" class="bg-white rounded h-full text-grey-darkest no-underline shadow-md text-center ">
+                <img class="w-full block rounded-b" src="<%= trail.image %>">
+                <p class="text-3xl p-6"><%= trail.name %></p>
+            </a>
+        <% }); %>
+    </div>
        
     <!--<div class="row flex text-center equal-height">-->
     <!--    <div class="col-sm-12">-->

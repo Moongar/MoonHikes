@@ -82,10 +82,16 @@
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  display: none;
+}
+
+.thumbnail:hover .image-button{
+    display: block;
 }
 
 .container .image-button:hover {
-  background-color: #cc3b4e;
+    background-color: #cc3b4e;
+  
 }
 
 .grid {
