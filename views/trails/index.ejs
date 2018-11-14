@@ -17,37 +17,49 @@
             </p>
         </div>
     </header>
-    
-    <div class="row flex text-center equal-height">
-        <div class="col-sm-12">
-            <% if(noMatch !== undefined && noMatch!=="no search"){ %>
-                <h3><%= noMatch %></h3>
-            <% } else if(noMatch !== "no search"){ %>
-                <% if(trails.length === 1){ %>
-                    <h3 class="pull-left">1 result found:</h3>
-                <% } else {%>
-                    <h3 class="pull-left"><%=trails.length %> results found:</h3>
-                <% } %>
-            <% } %>
+        <div class="grid max-w-4xl mx-auto p-8">
+            
+            <% trails.forEach(function(trail){ %>
+                <a href="/trails/<%= trail._id %>" class="bg-white rounded h-full text-grey-darkest no-underline shadow-md text-center ">
+                    <img class="w-full block rounded-b" src="<%= trail.image %>">
+                    <p class="text-3xl p-6"><%= trail.name %></p>
+                </a>
+                
+
+            <% }); %>
+            
         </div>
-        <% trails.forEach(function(trail){ %>
-            <div class="col-md-3 col-sm-6">
-                <div class="thumbnail indexPage">
-                    <a href="/trails/<%= trail._id %>">
-                        <img src="<%= trail.image %>">
-                        <div class="caption">
-                            <h4><%= trail.name %></h4>
-                        </div>
-                    </a>
-                    <p>
-                        <a href="/trails/<%= trail._id %>" class="btn btn-primary">
-                            More Info
-                        </a>
-                    </p>
-                </div>
-            </div>
-        <% }); %>
-    </div>
+       
+    <!--<div class="row flex text-center equal-height">-->
+    <!--    <div class="col-sm-12">-->
+    <!--        <% if(noMatch !== undefined && noMatch!=="no search"){ %>-->
+    <!--            <h3><%= noMatch %></h3>-->
+    <!--        <% } else if(noMatch !== "no search"){ %>-->
+    <!--            <% if(trails.length === 1){ %>-->
+    <!--                <h3 class="pull-left">1 result found:</h3>-->
+    <!--            <% } else {%>-->
+    <!--                <h3 class="pull-left"><%=trails.length %> results found:</h3>-->
+    <!--            <% } %>-->
+    <!--        <% } %>-->
+    <!--    </div>-->
+    <!--    <% trails.forEach(function(trail){ %>-->
+    <!--        <div class="col-md-3 col-sm-6">-->
+    <!--            <div class="thumbnail indexPage">-->
+    <!--                <a href="/trails/<%= trail._id %>">-->
+    <!--                    <img src="<%= trail.image %>">-->
+    <!--                    <div class="caption">-->
+    <!--                        <h4><%= trail.name %></h4>-->
+    <!--                    </div>-->
+    <!--                </a>-->
+    <!--                <p>-->
+    <!--                    <a href="/trails/<%= trail._id %>" class="btn btn-primary">-->
+    <!--                        More Info-->
+    <!--                    </a>-->
+    <!--                </p>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    <% }); %>-->
+    <!--</div>-->
     
 
 <% include ../partials/footer %>
