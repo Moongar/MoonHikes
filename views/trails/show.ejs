@@ -12,177 +12,10 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="well">
-                        
-                        <h5>Trail length: <%= trail.length %>km</h5>
-                        <h5>Elevation gain: <%= trail.elevation %>m</h5>
-                        <h5>Location: <%= trail.location %></h5>
-                        <em>Submitted by:<br />
-                        <a href="/users/<%= trail.author.id %>">
-                            <img src="<%= authorAvatar %>" class="authorIcon"> <%= trail.author.username %></a>, <%= moment(trail.createdAt).format("MMMM Do YYYY") %></em>
-            			
-                    </div>
-                    <div id="map"></div>
-                </div>
-                <div class="col-md-9">
-                    <div class="well">
-                        <img class="img-responsive" src="<%= trail.image %>">
-                        <div class="caption-full">
-                            <h5 class="pull-right">Trail length:<%= trail.length %>km, Elevation gain:<%= trail.elevation %>m</h5>
-                            <h4><a><%= trail.name %></a></h4>
-                            <p><%= trail.description %></p>
-                            <p>
-                                <em>Submitted by: <a href="/users/<%= trail.author.id %>"><%= trail.author.username %></a> , <%= moment(trail.createdAt).fromNow() %></em>
-                            </p>
-                            <% if(currentUser && trail.author.id.equals(currentUser._id)){ %>
-                                <a class="btn btn-xs btn-warning" href="/trails/<%= trail._id %>/edit">Edit</a>
-                                <form class="delete-form" action="/trails/<%= trail._id %>?_method=DELETE" method="POST">
-                                    <button class="btn btn-xs btn-danger">Delete</button>
-                                </form>
-                            <% } %>
-                        </div>
-                    </div>
-                    <!--COMMENT SECTION START-->
-                    <div class="well">
-                        <div class="well">
-                            <!--Setting up the add new comment button that is used for collapsing-->
-                            <div class="text-right">
-                                <a class="btn btn-success pull-right" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New comment
-                                </a>
-                            </div>
-                            <!--Comment section title-->
-                            <h4><strong>Comments <span class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span></strong></h4>
-                          
-                            <!--Collapse Add a comment form START-->
-                            <div class="collapse" id="collapseComment">
-                                <div class="well" style="border-left: 5px solid #00C851;">
-                                    <% if(!currentUser) { %>
-                                        <!--If the user is not logged in, direct him to the login page-->
-                                        <h5>You need to login before you can comment. <a href="/trails/<%= trail._id %>/comments/new">Click here</a> to go to the login page.</h5>
-                                    <% } %>
-                                    <% if(currentUser) { %>
-                                        <!--If the user is logged in, show the new comment form-->
-                                        <h4>Write your comment <span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></h4>
-                                        <form id="add-comment-form" action="/trails/<%= trail._id %>/comments" method="POST">
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" disabled value="<%= currentUser.username %>">
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea class="form-control" name="comment[text]" placeholder="Write your comment..." form="add-comment-form" rows="5" cols="70"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <button class="btn btn-success btn-sm">Comment <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
-                                            </div>
-                                        </form>
-                                    <% } %>
-                                </div>
-                            </div>
-                            <!--Collapse Add a comment form END-->
-                            <hr>
-                            <!--Check if there are comments, if there are none say no comments.-->
-                            <% if (trail.comments.length === 0) { %>
-                                <em style="color: grey;">No comments yet.</em>
-                            <% } %>
-                            <!--Display comments by looping through them-->
-                            <% trail.comments.forEach(function(comment) { %>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <strong>
-                                            <% if (currentUser && currentUser._id.equals(comment.author.id)) { %>
-                                                <!--If the current user owns the comment, change the color of the user icon-->
-                                                <span style="color: #00cc00;" class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                            <% } else { %>
-                                                <!--Else just display it black-->
-                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                            <% } %>
-                                            <!--Print out the author username-->
-                                            <%= comment.author.username %>
-                                        </strong>
-                                
-                                        <!--Show when the comment was made-->
-                                        <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
-                                  
-                                        <!--Printing the comment-->
-                                        <p><%= comment.text %></p>
-                                  
-                                        <!--If the visitor is logged in and the owner of the comment, show the edit and delete buttons-->
-                                        <% if (currentUser && currentUser._id.equals(comment.author.id)) { %>
-                                            <!--Edit button used for collapsing the edit comment form-->
-                                            <a class="btn btn-xs btn-warning" role="button" data-toggle="collapse" href="#collapseEdit<%= comment._id %>" aria-expanded="false" aria-controls="collapse<%= comment._id %>">
-                                                Edit
-                                            </a>
-                                  
-                                            <!--Delete comment button-->
-                                            <form id="delete-form" action="/trails/<%= trail._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" style="display: inline;">
-                                              <button class="btn btn-xs btn-danger">Delete</button>
-                                            </form>
-                                  
-                                            <!--Edit comment form-->
-                                            <div class="collapse" id="collapseEdit<%= comment._id %>">
-                                                <div class="well" style="border-left: 5px solid #ffbb33; margin-top: 15px;">
-                                                    <h4>Edit your comment <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></h4>
-                                                    <form id="edit-comment-form<%= comment._id %>" action="/trails/<%= trail._id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
-                                                        <div class="form-group">
-                                                            <input class="form-control" type="text" disabled value="<%= currentUser.username %>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <textarea class="form-control" name="comment[text]" placeholder="Your comment text..." form="edit-comment-form<%= comment._id %>" rows="5" cols="70"><%= comment.text %></textarea>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <button class="btn btn-warning btn-sm">Edit comment <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        <% } %>
-                                        <hr>
-                                    </div>
-                                </div>
-                            <% }) %>
-                        </div>
-                        <!--COMMENT SECTION END-->
-                                            
-                    </div>
-                </div>
-            </div>
+            <% include showTab1 %>
         </div>
         <div role="tabpanel" class="tab-pane" id="profile">
-            <div class="well">
-    		    <h4><a href="/trails/<%= trail._id %>/photos/new">Upload new photo</a></h4>
-		        <div class="mason-grid">
-		            <div class="grid-sizer"></div>
-		            <% trail.photos.forEach(function(photo){ %>
-		                <div class="grid-item">
-                                <a href="<%= photo.url %>" rel="noopener noreferrer" target="_blank"><img src="<%= photo.url %>" id="fullImage"></a>
-                                <% if(currentUser && photo.author.id.equals(currentUser._id)){ %>
-                                    <!--Delete comment button-->
-                                    <form id="delete-form" action="/trails/<%= trail._id %>/photos/<%= photo._id %>?_method=DELETE" method="POST">
-                                         <button class="image-button"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                <% } %>
-                        </div>
-		            <% }); %>
-		        </div>
-                <!--<div class="row flex text-center equal-height">-->
-                <!--    <% trail.photos.forEach(function(photo){ %>-->
-                <!--        <div class="col-md-3 col-sm-6">-->
-                <!--            <div class="thumbnail">-->
-                <!--                <a href="<%= photo.url %>"><img src="<%= photo.url %>" id="fullImage"></a>-->
-                <!--                <% if(currentUser && photo.author.id.equals(currentUser._id)){ %>-->
-                                    <!--Delete comment button-->
-                <!--                    <form id="delete-form" action="/trails/<%= trail._id %>/photos/<%= photo._id %>?_method=DELETE" method="POST">-->
-                <!--                         <button class="image-button"><i class="fas fa-trash-alt"></i></button>-->
-                <!--                    </form>-->
-                <!--                <% } %>-->
-                <!--            </div>-->
-                            
-                <!--        </div>-->
-                <!--    <% }); %>-->
-                <!--</div>-->
-            </div>
+            <% include showTab2 %>
         </div>
         <div role="tabpanel" class="tab-pane" id="messages">
             <div class="well">
@@ -193,7 +26,19 @@
 
 </div>
 
-
+<script>
+    // init Masonry
+    var $grid = $('.mason-grid').masonry({
+      itemSelector: '.grid-item',
+      percentPosition: true,
+      columnWidth: '.grid-sizer'
+    });
+    // layout Masonry after each image loads
+    $grid.imagesLoaded().progress( function() {
+      $grid.masonry();
+    });  
+    
+</script>
             
 <script>
     $(function() {
@@ -234,17 +79,6 @@
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADqGz6I4ErMW4iam2Bxj_nrHywPAv2P4w&callback=initMap"></script>
 
-<script>
-    // init Masonry
-    var $grid = $('.mason-grid').masonry({
-      itemSelector: '.grid-item',
-      percentPosition: true,
-      columnWidth: '.grid-sizer'
-    });
-    // layout Masonry after each image loads
-    $grid.imagesLoaded().progress( function() {
-      $grid.masonry();
-    });  
-</script>
+
 
 <% include ../partials/footer %>

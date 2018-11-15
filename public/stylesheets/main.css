@@ -76,10 +76,10 @@
 }
 
 /* Style the button and place it in the middle of the container/image */
-.container .image-button {
+.grid-item .image-button {
   position: absolute;
-  bottom: 6%;
-  right: 3%;
+  bottom: 1%;
+  right: 2%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   background-color: #c6c6c6;
@@ -92,15 +92,17 @@
   display: none;
 }
 
-.thumbnail:hover .image-button{
+.grid-item:hover .image-button{
     display: block;
 }
 
-.container .image-button:hover {
+.grid-item .image-button:hover {
     background-color: #cc3b4e;
   
 }
 
+/*display page layout*/
+/***************************************************************************/
 .grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -155,13 +157,12 @@
 }
 
 /*for masonry*/
-/**********************************************/
+/******************************************************************/
 * { box-sizing: border-box; }
 
 /* force scrollbar */
 html { overflow-y: scroll; }
 
-body { font-family: sans-serif; }
 
 /* ---- grid ---- */
 
