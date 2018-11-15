@@ -21,7 +21,9 @@
 	</div>
 	
 	<div class="col-md-8 col-sm-6 col-xs-12 well">
-		<a class="btn btn-primary" style="margin-left:15px;" href="/trails/new">Add New Trail</a>
+		<% if(currentUser && user._id.equals(currentUser._id)){ %>
+			<a class="btn btn-primary" style="margin-left:15px;" href="/trails/new">Add New Trail</a>
+		<% } %>
 		<h3 id="userTrails" class="no-top-margin">Uploaded trails:</h3>
         
 		<% trails.forEach(function(trail) { %>
