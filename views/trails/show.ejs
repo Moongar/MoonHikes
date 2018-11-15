@@ -1,31 +1,32 @@
 <% include ../partials/header %>
-
 <div>
     <h3 class="no-top-margin"><%= trail.name %></h3>
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist" id="myTab">
-        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Overview</a></li>
-        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Image Gallery</a></li>
-        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Detailed Info</a></li>
+        <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+        <li><a href="#gallery" data-toggle="tab">Image Gallery</a></li>
+        <li><a href="#detail" data-toggle="tab">Detailed Info</a></li>
     </ul>
-
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="home">
+        <div class="tab-content">
+        <div class="tab-pane active" id="home">
             <% include showTab1 %>
         </div>
-        <div role="tabpanel" class="tab-pane" id="profile">
-            <% include showTab2 %>
+        <div class="tab-pane" id="gallery">
+            
         </div>
-        <div role="tabpanel" class="tab-pane" id="messages">
+        <div class="tab-pane" id="detail">
             <div class="well">
                 More detailed trail data will be added here
             </div>
         </div>
     </div>
-
 </div>
 
+
+
+<!--for opening the same tab on refresh-->
+
+
+<!--initialize masonry-->
 <script>
     // init Masonry
     var $grid = $('.mason-grid').masonry({
@@ -36,21 +37,14 @@
     // layout Masonry after each image loads
     $grid.imagesLoaded().progress( function() {
       $grid.masonry();
-    });  
+    });
     
 </script>
-            
+
+
+
+<!--google maps-->
 <script>
-    $(function() {
-        $('a[data-toggle="tab"]').on('click', function(e) {
-            window.localStorage.setItem('activeTab', $(e.target).attr('href'));
-        });
-        var activeTab = window.localStorage.getItem('activeTab');
-        if (activeTab) {
-            $('#myTab a[href="' + activeTab + '"]').tab('show');
-            window.localStorage.removeItem("activeTab");
-        }
-    });
   function initMap() {
     var lat = <%= trail.lat %>;
     var lng = <%= trail.lng %>;
