@@ -7,17 +7,53 @@
         
         <!-- Bootstrap JS CDN -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+        
+<script>
+  	var $container = $('.masonry-container');
+  	$container.imagesLoaded( function () {
+  		$container.masonry({
+  			columnWidth: '.grid-sizer',
+  			itemSelector: '.grid-item',
+  			percentPosition: true
+  		});
+  	});
+  	
+  	//Reinitialize masonry inside each panel after the relative tab link is clicked - 
+  	$('a[data-toggle=tab]').each(function () {
+  		var $this = $(this);
+  
+  		$this.on('shown.bs.tab', function () {
+  			$container.imagesLoaded( function () {
+          		$container.masonry({
+          			columnWidth: '.grid-sizer',
+          			itemSelector: '.grid-item',
+          			percentPosition: true
+          		});
+          	});
+  
+  		}); //end shown
+  	});  //end each
+</script>
+        
         <script>
-          $(function() {
-              $('a[data-toggle="tab"]').on('click', function(e) {
-                  window.localStorage.setItem('activeTab', $(e.target).attr('href'));
-              });
-              var activeTab = window.localStorage.getItem('activeTab');
-              if (activeTab) {
-                  $('#myTab a[href="' + activeTab + '"]').tab('show');
-                  window.localStorage.removeItem("activeTab");
-              }
-          });
+          	$('a[data-toggle="tab"]').click(function (e) {
+          	    e.preventDefault();
+          	    $(this).tab('show');
+          	});
+          	
+          	$('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
+          	    var id = $(e.target).attr("href");
+          	    localStorage.setItem('selectedTab', id)
+          	});
+          	
+          	var selectedTab = localStorage.getItem('selectedTab');
+          	if (selectedTab != null) {
+          	    $('a[data-toggle="tab"][href="' + selectedTab + '"]').tab('show');
+          	}
         </script>
+        <!--initialize masonry-->
+
     </body>
 </html>

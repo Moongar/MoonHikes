@@ -1,44 +1,41 @@
 <% include ../partials/header %>
-<div>
-    <h3 class="no-top-margin"><%= trail.name %></h3>
-        <ul class="nav nav-tabs" id="myTab">
-        <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-        <li><a href="#gallery" data-toggle="tab">Image Gallery</a></li>
-        <li><a href="#detail" data-toggle="tab">Detailed Info</a></li>
-    </ul>
-        <div class="tab-content">
-        <div class="tab-pane active" id="home">
-            <% include showTab1 %>
-        </div>
-        <div class="tab-pane" id="gallery">
-            <% include showTab2 %>
-        </div>
-        <div class="tab-pane" id="detail">
-            <% include showTab3 %>
-        </div>
-    </div>
-</div>
 
 
+<div class="container main-container">
+  <div class="trail-name text-center">
+    <h2 class="no-top-margin" style="padding-top:30px;"><%= trail.name %></h2>
+  </div>
+	
+	<div role="tabpanel">
 
-<!--for opening the same tab on refresh-->
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#panel-1" aria-controls="panel-1" role="tab" data-toggle="tab">Panel 1</a></li>
+			<li role="presentation"><a href="#panel-2" aria-controls="panel-2" role="tab" data-toggle="tab">Panel 2</a></li>
+			<li role="presentation"><a href="#panel-3" aria-controls="panel-3" role="tab" data-toggle="tab">Panel 3</a></li>
+		</ul>
 
+		<!-- Tab panes -->
+		<div class="tab-content">
+		
+			<div role="tabpanel" class="tab-pane active" id="panel-1">
+				<% include showTab1 %>
+			</div><!--/.tab-panel -->
+			
+			<div role="tabpanel" class="tab-pane" id="panel-2">
+				<% include showTab2 %>
+			</div><!--/.tab-panel -->
+			
+			<div role="tabpanel" class="tab-pane" id="panel-3">
+				<% include showTab3 %>
+			</div><!--/.tab-panel -->
+			
 
-<!--initialize masonry-->
-<script>
-    // init Masonry
-    var $grid = $('.mason-grid').masonry({
-      itemSelector: '.grid-item',
-      percentPosition: true,
-      columnWidth: '.grid-sizer'
-    });
-    // layout Masonry after each image loads
-    $grid.imagesLoaded().progress( function() {
-      $grid.masonry();
-    });
-    
-</script>
+		</div> <!--/.tab-content -->
 
+	</div> <!--/.tab-panel  -->
+
+</div><!-- /.container -->
 
 
 <!--google maps-->
