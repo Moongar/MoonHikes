@@ -184,9 +184,9 @@
 /*for masonry*/
 /******************************************************************/
 
-/*.main-container {*/
-/*  padding: 60px 15px;*/
-/*}*/
+.main-container {
+  padding: 0;
+}
 
 /*.grid-item {*/
 /*	transition-duration: 0.9s;*/
