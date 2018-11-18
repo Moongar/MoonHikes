@@ -11,6 +11,11 @@
                      <button class="image-button"><i class="fas fa-trash-alt"></i></button>
                 </form>
             <% } %>
+            <em>
+                <a class="user-on-image" href="/users/<%= trail.author.id %>">
+                <img src="<%= authorAvatar %>" class="authorIcon">  <%= trail.author.username %></a>
+            </em>
+			
         </div>
     <% }); %>
 	

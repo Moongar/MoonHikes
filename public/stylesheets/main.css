@@ -2,6 +2,7 @@
 .authorIcon {
     width: 30px;
     height: auto;
+    max-height: 40px;
 }
 
 .thumbnail img{
@@ -103,10 +104,10 @@
 /* Style the button and place it in the middle of the container/image */
 .grid-item .image-button {
   position: absolute;
-  bottom: 1%;
-  right: 1%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
+  bottom: 3%;
+  right: 3%;
+  /*transform: translate(-50%, -50%);*/
+  /*-ms-transform: translate(-50%, -50%);*/
   background-color: #c6c6c6;
   color: white;
   font-size: 12px;
@@ -115,6 +116,28 @@
   cursor: pointer;
   border-radius: 5px;
   display: none;
+}
+
+.grid-item .user-on-image {
+  position: absolute;
+  bottom: 2%;
+  left: 3%;
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
+
+.grid-item .user-on-image img{
+    width: 25px;
+    height: auto;
+    max-height: 30px;
+    border-radius: 10px;
+}
+
+.grid-item:hover .user-on-image{
+    display: block;
 }
 
 .grid-item:hover .image-button{
