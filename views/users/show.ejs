@@ -34,9 +34,11 @@
 			
 				<div role="tabpanel" class="tab-pane active" id="panel-1">
 					<div class="clearfix">
-						<% if(currentUser && user._id.equals(currentUser._id)){ %>
-							<a class="btn btn-primary" style="margin-left:15px;" href="/trails/new">Add New Trail</a>
-						<% } %>
+						<div class="col-lg-12 col-md-12 col-s-12">
+							<% if(currentUser && user._id.equals(currentUser._id)){ %>
+								<a class="btn btn-primary" style="margin-bottom:10px;" href="/trails/new">Add New Trail</a>
+							<% } %>
+						</div>
 	
 						<% trails.forEach(function(trail) { %>
 						    <div class="col-lg-4 col-md-6 col-s-12">
