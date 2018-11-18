@@ -249,7 +249,7 @@
     .grid-sizer,
     .grid-item {
         width: 48.5%;
-        min-width: 300px;
+        /*min-width: 300px;*/
         margin: 0.5%;
     }
 }
@@ -258,7 +258,7 @@
     .grid-sizer,
     .grid-item {
         width: 32.33%;
-        min-width: 300px;
+        /*min-width: 300px;*/
         margin: 0.5%;
     }
 }

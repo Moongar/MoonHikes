@@ -1,6 +1,6 @@
 <% include ../partials/header %>
 <div class="row">
-	<div class="col-md-4 col-sm-6 col-xs-12">
+	<div class="col-md-4 col-sm-4 col-xs-12">
 		<div class="well">
 			<h2 class="no-top-margin"><%= user.firstName + " " + user.lastName %></h2>
 			<div>
@@ -20,7 +20,7 @@
 		</div>
 	</div>
 	
-	<div class="col-md-8 col-sm-6 col-xs-12">
+	<div class="col-md-8 col-sm-8 col-xs-12">
 		<div role="tabpanel">
 
 			<!-- Nav tabs -->
@@ -57,7 +57,14 @@
 				</div><!--/.tab-pane1 -->
 				
 				<div role="tabpanel" class="tab-pane" id="panel-2">
-					<p>images will be uploaded here</p>
+					<div class="masonry-container">
+						<% photos.forEach(function(photo){ %>
+					        <div class="grid-sizer"></div>
+					        <div class="grid-item">
+					            <a href="<%= photo.url %>" rel="noopener noreferrer" target="_blank"><img src="<%= photo.url %>" id="fullImage"></a>
+					        </div>
+					    <% }); %>
+					</div>
 				</div><!--/.tab-pane2 -->
 			</div> <!--/.tab-content -->
 

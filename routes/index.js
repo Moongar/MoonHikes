@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require("passport");
 var User  = require("../models/user");
 var Trail = require("../models/trail");
+var Photo = require("../models/photo");
 var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
@@ -181,13 +182,19 @@ router.get("/users/:id", function(req, res) {
         if(err) {
             req.flash("error", "Something went wrong.");
             return res.redirect("/");
-          }
-          Trail.find().where('author.id').equals(foundUser._id).exec(function(err, trails) {
+        }
+        Trail.find().where('author.id').equals(foundUser._id).exec(function(err, trails) {
             if(err) {
-              req.flash("error", "Something went wrong.");
-              return res.redirect("/");
+                req.flash("error", "Something went wrong.");
+                return res.redirect("/");
             }
-            res.render("users/show", {user: foundUser, trails: trails});
+            Photo.find().where('author.id').equals(foundUser._id).exec(function(err, photos) {
+                if(err) {
+                    req.flash("error", "Something went wrong.");
+                    return res.redirect("/");
+                }
+                res.render("users/show", {user: foundUser, trails: trails, photos: photos});
+            });
         });
     });
 });
