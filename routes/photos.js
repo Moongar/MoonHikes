@@ -61,6 +61,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req,res
                         //add username and id to photo
                         photo.author.id=req.user._id;
                         photo.author.username=req.user.username;
+                        photo.author.avatar=req.user.avatar;
                         //save comment
                         photo.save();
                         trail.photos.push(photo);
