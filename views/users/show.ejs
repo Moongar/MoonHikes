@@ -61,7 +61,18 @@
 						<% photos.forEach(function(photo){ %>
 					        <div class="grid-sizer"></div>
 					        <div class="grid-item">
-					            <a href="<%= photo.url %>" rel="noopener noreferrer" target="_blank"><img src="<%= photo.url %>" id="fullImage"></a>
+					            <a href="<%= photo.url %>" rel="noopener noreferrer" target="_blank">
+					            	<img src="<%= photo.url %>" id="fullImage">
+					            </a>
+					            <a href="/trails/<%= photo.trail.id %>" class="user-on-image">
+					            	<%= photo.trail.name %>
+					            </a>
+					            <% if(currentUser && photo.author.id.equals(currentUser._id)){ %>
+					                <!--Delete comment button-->
+					                <form id="delete-form" action="/trails/<%= photo.trail.id %>/photos/<%= photo._id %>?_method=DELETE" method="POST">
+					                     <button class="image-button"><i class="fas fa-trash-alt"></i></button>
+					                </form>
+					            <% } %>
 					        </div>
 					    <% }); %>
 					</div>

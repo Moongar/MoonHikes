@@ -62,7 +62,9 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req,res
                         photo.author.id=req.user._id;
                         photo.author.username=req.user.username;
                         photo.author.avatar=req.user.avatar;
-                        //save comment
+                        photo.trail.id=trail.id;
+                        photo.trail.name=trail.name;
+                        //save photo
                         photo.save();
                         trail.photos.push(photo);
                         trail.save();
@@ -85,7 +87,8 @@ router.delete("/:photo_id", function(req, res){
             await cloudinary.v2.uploader.destroy(photo.publicUrl);
             photo.remove();
             req.flash('success', 'Photo deleted successfully!');
-            res.redirect('/trails/'+req.params.id);
+            // res.redirect('/trails/'+req.params.id);
+            return res.redirect("back");
         } catch(err) {
             if(err) {
               req.flash("error", err.message);

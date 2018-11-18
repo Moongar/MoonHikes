@@ -11,6 +11,13 @@ var photoSchema= new mongoose.Schema({
         },
         username: String,
         avatar: String
+    },
+    trail: {
+        id:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Trail"
+        },
+        name: String,
     }
 });
 
